@@ -1,9 +1,12 @@
 package com.pm.patientservice.mapper;
 
+import com.pm.patientservice.dto.PatientRequestDTO;
 import com.pm.patientservice.dto.PatientResponseDTO;
 import com.pm.patientservice.model.Patient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 @Component
 public class PatientMapper {
@@ -16,5 +19,15 @@ public class PatientMapper {
                 patient.getAddress(),
                 patient.getDateOfBirth().toString()
         );
+    }
+
+    public static Patient convertToEntity(PatientRequestDTO patientRequestDTO){
+        Patient patient = new Patient();
+        patient.setName(patientRequestDTO.getName());
+        patient.setEmail(patientRequestDTO.getEmail());
+        patient.setAddress(patientRequestDTO.getAddress());
+        patient.setDateOfBirth(LocalDate.parse(patientRequestDTO.getDateOfBirth()));
+        patient.setRegisteredDate(LocalDate.parse(patientRequestDTO.getRegisteredDate()));
+        return patient;
     }
 }
